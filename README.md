@@ -1,2 +1,11 @@
 # MULTIZONE
-많은 사람과 게임하자
+
+## import
+```
+soket
+threading
+Dokongthreading
+```
+## defult
+### host : 192.0.0.1(locallhost)
+### port : input
