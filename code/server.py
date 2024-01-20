@@ -3,7 +3,7 @@ import threading
 import WanduThread
 
 connlist = []
-
+#?
 def home():
     print("MULTIZONE ㅣ Server")
     print("호완 버전 : 1.0")

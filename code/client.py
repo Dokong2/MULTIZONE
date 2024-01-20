@@ -5,5 +5,5 @@ def home():
     start = input(">>")
     if start == "connect":
         connect()
-
+#?
 def connect():
