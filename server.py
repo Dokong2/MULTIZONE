@@ -10,23 +10,26 @@ now = time
 conn = ""
 def accepts():
     global server_socket
+    global connlist
     server_socket.listen(2)
     while True:
         conn, address = server_socket.accept()
         print(now.strftime('%Y-%m-%d %H:%M:%S'), "client is connect. " + "way : " + str(address))
         connlist.append(conn)
         print("[connlist]에 새로운 콘이 들어갔습니다.")
-        t1 = threading.Thread(target=recvingandsend,args=conn)
+        t1 = threading.Thread(target=recvingandsend,args=(conn,))
         t1.start()
 
 
 def recvingandsend(conn):
     global connlist
-    data = conn.recv(1024).decode()
-    print("클라이언트에게 샌드 데이터가 왔습니다. 데이터 : " + str(data))
-    for connlist in conn:
-        conn.send(data.encode())
-        print("모든 클라이언트에게 전송되었습니다. 값 : " + str(sendmsg))
+    while True:
+        data = conn.recv(1024).decode()
+        print("클라이언트에게 샌드 데이터가 왔습니다. 데이터 : " + str(data))
+        for conn in connlist:
+            conn.send(data.encode())
+            print("전송됨. conn : " + str(conn))
+        print("모든 클라이언트에게 전송되었습니다. 값 : " + str(data))
 
 
 
@@ -51,3 +54,4 @@ if start == "open":
     print("서버가 생성되었습니다.")
     t2 = threading.Thread(target=accepts)
     t2.start()
+    t2.join()
